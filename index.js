@@ -3,17 +3,13 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv/config')
 
+const { createEvent } = import('./src/events.js')
+
 const app = express()
 app.use(express.json())
 
-mongoose
-    .connect(process.env.DB_CONNECTION, {useNewUrlParser: true , useUnifiedTopology: true})
-    .then(console.log('connected to mongo'))
-    .catch(err => console.log(err))
+app.get('/events', createEvent)
 
-app.get('/events', (req, res) => {
-
-})
 app.get('/', (req,res) => res.send('🏠 HOMEPAGE 📄'))
 
 
