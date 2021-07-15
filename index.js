@@ -10,7 +10,10 @@ app.use(express.json())
 
 mongoose
     .connect(process.env.DB_CONNECTION, {useNewUrlParser: true , useUnifiedTopology: true})
-    .then(console.log('connected to mongo'))
+    .then(() => {
+    console.log('Connected to mongo')
+    app.listen(5000, () => console.log('Listening on port 5000'))
+    })    
     .catch(err => console.log(err))
 
 const eventSchema = mongoose.Schema({
@@ -42,6 +45,3 @@ app.get('/events', (req, res) =>{
     res.send('created successfully')
 })
 app.get('/', (req,res) => res.send('🏠 HOMEPAGE 📄'))
-
-
-app.listen(5000, () => console.log('Listening on port 5000'))
